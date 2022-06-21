@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            var formData = JSON.stringify($("#validateForm").serializeArray());
+        </script>
+    </head>
+    <body>
+        <h1>Hey world!</h1>
+        <p>Get a brand new token! (Lasts for 30 entire seconds!)</p>
+        <button onclick="newToken();">Generate new token</button>
+        <br><br>
+        <div id="newTokenResult"></div>
+        <p>Verify your token:</p>
+        <form id="validateForm" action="/validate">
+            <label for="token">Token:</label><br>
+            <input type="text" name="token"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="validationResult"></div>
+        <script>
+            async function newToken() {
+                fetch("/token")
+                  .then(response => response.json())
+                  .then(data => {
+                    $( "#newTokenResult" ).empty().append( data["message"] );
+                });
+            }
+
+            $( "#validateForm" ).submit(function( event ) {
+                event.preventDefault();
+                var $form = $( this ),
+                  term = $form.find( "input[name='token']" ).val(),
+                  url = $form.attr( "action" );
+                var posting = $.ajax({
+                    type: "POST",
+                    url: "/validate",
+                    data: JSON.stringify({ token: term }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+                        $( "#validationResult" ).empty().append( data["message"] );
+                    },
+                    error: function(errMsg) {
+                    alert(errMsg);
+                    }
+                });
+            });
+            </script>
+    </body>
+</html>
