@@ -13,12 +13,21 @@ class Database {
     async migrate() {
         return this.db.exec(`
             DROP TABLE IF EXISTS tokens;
+            DROP TABLE IF EXISTS ipWhitelist;
 
             CREATE TABLE IF NOT EXISTS tokens (
                 id         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
                 token      VARCHAR(255),
                 timestamp  VARCHAR(255)
             );
+
+            CREATE TABLE IF NOT EXISTS ipWhitelist (
+                id         INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+                ip      VARCHAR(255)
+            );
+
+            INSERT INTO ipWhitelist (ip) VALUES ('127.0.0.1');
+            INSERT INTO ipWhitelist (ip) VALUES ('192.168.0.200'); /*TODO: remove this debug line*/
 
         `);
     }
@@ -46,6 +55,34 @@ class Database {
                     reject("Your token has expired. Please refresh.");
                 } else {
                     reject("Invalid token.");
+                }
+            } catch(e) {
+                console.log(e);
+                reject(e);
+            }
+        });
+    }
+
+    async addWhitelistedIp(reqIp) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let query = `INSERT INTO ipWhitelist (ip) VALUES ('${ reqIp }');`;
+                resolve((await this.db.run(query)));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+
+    async isIpWhitelisted(reqIp) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let smt = await this.db.prepare('SELECT * FROM ipWhitelist WHERE ip = ?');
+                let row = await smt.get(reqIp);
+                if (row !== undefined) {
+                    resolve(true);
+                } else {
+                    reject(false);
                 }
             } catch(e) {
                 console.log(e);

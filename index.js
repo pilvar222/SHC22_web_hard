@@ -5,9 +5,9 @@ const routes        = require('./routes');
 const path          = require('path');
 const Database      = require('./database');
 
-const port = 1212;
+const port = 12345;
 
-const db = new Database('csrftoken.db');
+const db = new Database('database.db');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

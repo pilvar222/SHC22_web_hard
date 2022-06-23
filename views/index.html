@@ -18,6 +18,15 @@
             <input type="submit" value="Submit">
         </form>
         <div id="validationResult"></div>
+        <p>Whitelist an IP:</p>
+        <form id="whitelistForm" action="/whitelistIp">
+            <label for="token">Token:</label><br>
+            <input type="text" name="token"><br><br>
+            <label for="address">Ip address:</label><br>
+            <input type="text" name="address"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="whitelistResult"></div>
         <script>
             async function newToken() {
                 fetch("/token")
@@ -40,6 +49,26 @@
                     dataType: "json",
                     success: function(data){
                         $( "#validationResult" ).empty().append( data["message"] );
+                    },
+                    error: function(errMsg) {
+                    alert(errMsg);
+                    }
+                });
+            });
+            $( "#whitelistForm" ).submit(function( event ) {
+                event.preventDefault();
+                var $form = $( this ),
+                  tokenTerm = $form.find( "input[name='token']" ).val(),
+                  addressTerm = $form.find( "input[name='address']" ).val(),
+                  url = $form.attr( "action" );
+                var posting = $.ajax({
+                    type: "POST",
+                    url: "/whitelistIp",
+                    data: JSON.stringify({ token: tokenTerm, address: addressTerm }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function(data){
+                        $( "#whitelistResult" ).empty().append( data["message"] );
                     },
                     error: function(errMsg) {
                     alert(errMsg);
