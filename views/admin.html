@@ -1,11 +1,28 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script>
-            var formData = JSON.stringify($("#validateForm").serializeArray());
-        </script>
     </head>
     <body>
-        <p>Welcome to the admin page!</p>
+        <p>Get a brand new token! (Lasts for 30 entire seconds!)</p>
+        <button onclick="newToken();">Generate new token</button>
+        <br><br>
+        <div id="newTokenResult"></div>
+        <p>Verify your token:</p>
+        <form id="validateForm" action="/validate">
+            <label for="token">Token:</label><br>
+            <input type="text" name="token"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="validationResult"></div>
+        <p>Whitelist an IP:</p>
+        <form id="whitelistForm" action="/whitelistIp">
+            <label for="token">Token:</label><br>
+            <input type="text" name="token"><br><br>
+            <label for="address">Ip address:</label><br>
+            <input type="text" name="address"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="whitelistResult"></div>
+        <script src="/static/js/main.js"></script>
     </body>
 </html>

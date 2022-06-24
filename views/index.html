@@ -6,75 +6,13 @@
         </script>
     </head>
     <body>
-        <h1>Hey world!</h1>
-        <p>Get a brand new token! (Lasts for 30 entire seconds!)</p>
-        <button onclick="newToken();">Generate new token</button>
-        <br><br>
-        <div id="newTokenResult"></div>
-        <p>Verify your token:</p>
-        <form id="validateForm" action="/validate">
-            <label for="token">Token:</label><br>
-            <input type="text" name="token"><br><br>
+        <p>Report an URL:</p>
+        <form id="reportForm" action="/report">
+            <label for="url">URL:</label><br>
+            <input type="text" name="url"><br><br>
             <input type="submit" value="Submit">
         </form>
-        <div id="validationResult"></div>
-        <p>Whitelist an IP:</p>
-        <form id="whitelistForm" action="/whitelistIp">
-            <label for="token">Token:</label><br>
-            <input type="text" name="token"><br><br>
-            <label for="address">Ip address:</label><br>
-            <input type="text" name="address"><br><br>
-            <input type="submit" value="Submit">
-        </form>
-        <div id="whitelistResult"></div>
-        <script>
-            async function newToken() {
-                fetch("/token")
-                  .then(response => response.json())
-                  .then(data => {
-                    $( "#newTokenResult" ).empty().append( data["message"] );
-                });
-            }
-
-            $( "#validateForm" ).submit(function( event ) {
-                event.preventDefault();
-                var $form = $( this ),
-                  term = $form.find( "input[name='token']" ).val(),
-                  url = $form.attr( "action" );
-                var posting = $.ajax({
-                    type: "POST",
-                    url: "/validate",
-                    data: JSON.stringify({ token: term }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function(data){
-                        $( "#validationResult" ).empty().append( data["message"] );
-                    },
-                    error: function(errMsg) {
-                    alert(errMsg);
-                    }
-                });
-            });
-            $( "#whitelistForm" ).submit(function( event ) {
-                event.preventDefault();
-                var $form = $( this ),
-                  tokenTerm = $form.find( "input[name='token']" ).val(),
-                  addressTerm = $form.find( "input[name='address']" ).val(),
-                  url = $form.attr( "action" );
-                var posting = $.ajax({
-                    type: "POST",
-                    url: "/whitelistIp",
-                    data: JSON.stringify({ token: tokenTerm, address: addressTerm }),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function(data){
-                        $( "#whitelistResult" ).empty().append( data["message"] );
-                    },
-                    error: function(errMsg) {
-                    alert(errMsg);
-                    }
-                });
-            });
-            </script>
+        <div id="reportResult"></div>
+        <script src="static/js/main.js"></script>
     </body>
 </html>

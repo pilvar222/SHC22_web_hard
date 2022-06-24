@@ -1,7 +1,8 @@
 const path              = require('path');
 const express           = require('express');
 const router            = express.Router();
-const crypto = require('crypto');
+const crypto            = require('crypto');
+const browse            = require('./../browser');
 
 let db;
 
@@ -20,8 +21,7 @@ router.get('/token', (req, res) => {
         .catch(() => res.send(response('Your ip is not whitelisted, please contact an administrator.')));
 });
 
-router.get('/logip', (req, res) => {
-    console.log(req.socket.remoteAddress.replace(/^.*:/, ''))
+router.get('/dashboard', (req, res) => {
     return db.isIpWhitelisted(req.socket.remoteAddress.replace(/^.*:/, ''))
         .then(() => res.sendFile(path.resolve('views/admin.html')))
         .catch(() => res.sendFile(path.resolve('views/unauthorized.html')));
@@ -57,6 +57,26 @@ router.post('/whitelistIp', (req, res) => {
             .catch((tokenError) => res.send(response(`${tokenError}`)));
     } else {
         res.send(response("Please specify an address."));
+    }
+});
+
+router.get('/logip', (req, res) => {
+    console.log(req.socket.remoteAddress.replace(/^.*:/, ''))
+    return db.isIpWhitelisted(req.socket.remoteAddress.replace(/^.*:/, ''))
+        .then(() => res.sendFile(path.resolve('views/admin.html')))
+        .catch(() => res.sendFile(path.resolve('views/unauthorized.html')));
+});
+
+router.post('/report', (req, res) => {
+
+    let { url } = req.body;
+
+    if (url) {
+        console.log(req.socket.remoteAddress.replace(/^.*:/, ''))
+        browse.browseTo(url);
+        res.send(response('Thanks for the report, our agents are taking a look at it.'));
+    } else {
+        res.send(response("Please specify an url."));
     }
 });
 
