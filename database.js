@@ -66,7 +66,8 @@ class Database {
     async addWhitelistedIp(reqIp) {
         return new Promise(async (resolve, reject) => {
             try {
-                let query = `INSERT INTO ipWhitelist (ip) VALUES ('${ reqIp }');`;
+                let smt = `INSERT INTO ipWhitelist (ip) VALUES ('?');`;
+                let query = await smt.get(reqIp);
                 resolve((await this.db.run(query)));
             } catch(e) {
                 reject(e);
