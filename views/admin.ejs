@@ -12,12 +12,13 @@
     var formData = JSON.stringify($("#validateForm").serializeArray());
 </script>
 <style>
-    div[lang=<%= language %>]{
+    <%= language %>{
         display: block;
     }
 </style>
 <body>
-    <a style="position: fixed; margin:0; padding:15px;" target="_blank" href="none" id="change_lang"></a>
+    <div lang="OldSpeak"><a style="position: fixed; margin:0; padding:15px;" href="/div[lang=NewSpeak]/dashboard">Switch to NewSpeak</a></div>
+    <div lang="NewSpeak"><a style="position: fixed; margin:0; padding:15px;" href="/div[lang=OldSpeak]/dashboard">Switch to OldSpeak</a></div>
     <img src="https://cdn.dribbble.com/users/7184/screenshots/588811/media/7cdeed3e932a0c37e26cc3e988aee34d.png?compress=1&resize=400x300" alt="logoMinipax"
         style="width:20%;">
     <div style="padding-top:0; margin:0; border-bottom: 1px solid #cccccc; padding: 25px; color: #cccccc;" lang="NewSpeak">

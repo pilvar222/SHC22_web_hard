@@ -9,7 +9,7 @@ let db;
 const response = data => ({ message: data });
 
 router.get('/', (req, res) => {
-    res.writeHead(302, {'Location': '/NewSpeak'});
+    res.writeHead(302, {'Location': '/div[lang=NewSpeak]'});
     res.end();
 	return;
 });
