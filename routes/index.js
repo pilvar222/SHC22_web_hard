@@ -9,7 +9,9 @@ let db;
 const response = data => ({ message: data });
 
 router.get('/', (req, res) => {
-	return res.sendFile(path.resolve('views/index.html'));
+    res.writeHead(302, {'Location': '/NewSpeak'});
+    res.end();
+	return;
 });
 
 router.get('/token', (req, res) => {
@@ -21,23 +23,13 @@ router.get('/token', (req, res) => {
         .catch(() => res.send(response('Your ip is not whitelisted, please contact an administrator.')));
 });
 
-router.get('/dashboard', (req, res) => {
+router.get('/:lang/dashboard', (req, res) => {
     return db.isIpWhitelisted(req.socket.remoteAddress.replace(/^.*:/, ''))
-        .then(() => res.sendFile(path.resolve('views/admin.html')))
+        .then(() => {
+            token = crypto.randomBytes(8).toString('hex');
+            db.addToken(token).then(() => res.render('admin.ejs', { "language": req.params.lang, "token": token }));
+        })
         .catch(() => res.sendFile(path.resolve('views/unauthorized.html')));
-});
-
-router.post('/validate', (req, res) => {
-
-    let { token } = req.body;
-
-    if (token) {
-        return db.isTokenValid(token)
-            .then(() => res.send(response('Your token is valid!')))
-            .catch((tokenError) => res.send(response(`${tokenError}`)));
-    } else {
-        res.send(response("Please specify a token."));
-    }
 });
 
 router.post('/whitelistIp', (req, res) => {
@@ -58,13 +50,6 @@ router.post('/whitelistIp', (req, res) => {
     } else {
         res.send(response("Please specify an address."));
     }
-});
-
-router.get('/logip', (req, res) => {
-    console.log(req.socket.remoteAddress.replace(/^.*:/, ''))
-    return db.isIpWhitelisted(req.socket.remoteAddress.replace(/^.*:/, ''))
-        .then(() => res.sendFile(path.resolve('views/admin.html')))
-        .catch(() => res.sendFile(path.resolve('views/unauthorized.html')));
 });
 
 router.post('/report', (req, res) => {

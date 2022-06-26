@@ -27,7 +27,6 @@ class Database {
             );
 
             INSERT INTO ipWhitelist (ip) VALUES ('127.0.0.1');
-            INSERT INTO ipWhitelist (ip) VALUES ('192.168.0.200'); /*TODO: remove this debug line*/
 
         `);
     }
@@ -66,9 +65,8 @@ class Database {
     async addWhitelistedIp(reqIp) {
         return new Promise(async (resolve, reject) => {
             try {
-                let smt = `INSERT INTO ipWhitelist (ip) VALUES ('?');`;
-                let query = await smt.get(reqIp);
-                resolve((await this.db.run(query)));
+                let query = `INSERT INTO ipWhitelist (ip) VALUES (?);`;
+                resolve((await this.db.run(query, reqIp)));
             } catch(e) {
                 reject(e);
             }

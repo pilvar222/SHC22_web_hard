@@ -7,6 +7,8 @@ const Database      = require('./database');
 
 const port = 12345;
 
+app.set('view engine', 'ejs');
+
 const db = new Database('database.db');
 
 app.use(bodyParser.json());
@@ -18,10 +20,13 @@ app.use('/static', express.static(path.resolve('static')));
 
 app.use(routes(db));
 
-app.all('*', (req, res) => {
-    return res.status(404).send({
-        message: '404 page not found'
-    });
+app.all('/:lang', (req, res) => {
+    if ((new Date().getTime() % 600) > 300) {
+        var ennemy = "Eastasia";
+    } else {
+        var ennemy = "Eurasia";
+    }
+    return res.render("index.ejs", { language: req.params.lang, "ennemy": ennemy});
 });
 
 (async () => {

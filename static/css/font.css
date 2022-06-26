@@ -1,0 +1,40 @@
+@font-face {
+    font-family: MinipaxREG;
+    src: url(Minipax-Regular.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: MinipaxMED;
+    src: url(Minipax-Medium.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: MinipaxSEM;
+    src: url(Minipax-SemiBold.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: MinipaxBOL;
+    src: url(Minipax-Bold.ttf) format("truetype");
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  .MinipaxReg {
+    font-family: MinipaxREG, B Nazanin, Tahoma !important;
+  }
+  
+  .MinipaxMed {
+    font-family: MinipaxMED, B Nazanin, Tahoma !important;
+  }
+  
+  .MinipaxSem {
+    font-family: MinipaxSEM, B Nazanin, Tahoma !important;
+  }
+  
+  .MinipaxBol {
+    font-family: MinipaxBOL, B Nazanin, Tahoma !important;
+  }

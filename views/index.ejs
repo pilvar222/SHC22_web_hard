@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static/css/font.css">
+    <link rel="stylesheet" href="static/css/cascade.css">
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    var formData = JSON.stringify($("#validateForm").serializeArray());
+</script>
+<style>
+    div[lang=<%= language %>]{
+        display: block;
+    }
+</style>
+<body>
+    <a style="position: fixed; margin:0; padding:15px;" target="_blank" href="none" id="change_lang"></a>
+    <img src="https://i.pinimg.com/736x/ab/59/6c/ab596c98151daf046452b40aff4ff77a---flag.jpg" alt="logoMinipax"
+        style="width:20%;">
+    <div style="padding-top:0; margin:0; border-bottom: 1px solid #cccccc; padding: 25px; color: #cccccc;" lang="NewSpeak">
+        <h1>Ministry of Peace</h1>
+        <p>If you have seen any suspicious online activities that could lead the government to any information about our ennemy (<%= ennemy %>) troops position, immediately report the link through this form.
+        </p>
+    </div>
+    <div style=" align-content: center; text-align: center; align-items: center; border-bottom: 1px solid #cccccc; padding: 25px; color: #cccccc;" lang="NewSpeak">
+        <h1>Report</h1>
+        <form id="newReportForm" action="/report">
+            <label for="url">URL:</label><br>
+            <input type="text" name="url"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="newReportResult" lang="NewSpeak"></div>
+        <script src="static/js/main.js"></script>
+    </div>
+    <div style="padding-top:0; margin:0; border-bottom: 1px solid #cccccc; padding: 25px; color: #cccccc;" lang="OldSpeak">
+        <h1>Minipax</h1>
+        <p>If you have seen any un-good suspicousful un-outline activities that could lead our people to any information about our un-friends (<%= ennemy %>) troops position, plus-now report the link through this form.
+        </p>
+    </div>
+    <div style=" align-content: center; text-align: center; align-items: center; border-bottom: 1px solid #cccccc; padding: 25px; color: #cccccc;" lang="OldSpeak">
+        <h1>Report</h1>
+        <form id="oldReportForm" action="/report">
+            <label for="url">URL:</label><br>
+            <input type="text" name="url"><br><br>
+            <input type="submit" value="Submit">
+        </form>
+        <div id="oldReportResult" lang="OldSpeak"></div>
+        <script src="static/js/main.js"></script>
+    </div>
+</body>
+<!--Credits to our comrade Nils Kundert (Drazik) for the design-->
+</html>
