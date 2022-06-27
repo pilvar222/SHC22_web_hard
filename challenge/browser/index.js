@@ -9,11 +9,7 @@ module.exports = {
         const page = await browser.newPage();
         try {
             await page.goto(url);
-            for (let i = 0; i < 100; ++i) {
-                await page.mouse.click(Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), {button: 'left'});
-                await page.press('ArrowLeft');
-                await new Promise(r => setTimeout(r, 10));
-            }
+            await new Promise(r => setTimeout(r, 5000));
         } catch (err) {
             return (false);
         }

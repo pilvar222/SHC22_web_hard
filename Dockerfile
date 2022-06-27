@@ -17,9 +17,6 @@ RUN mkdir -p /app
 WORKDIR /app
 COPY challenge .
 
-# Add flag
-COPY flag.txt /flag.txt
-
 # Run everything after as non-privileged user.
 # Install dependencies
 RUN yarn
