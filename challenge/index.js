@@ -5,7 +5,7 @@ const routes        = require('./routes');
 const path          = require('path');
 const Database      = require('./database');
 
-const port = 12345;
+const port = 1337;
 
 app.set('view engine', 'ejs');
 

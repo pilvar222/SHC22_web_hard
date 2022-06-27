@@ -57,7 +57,6 @@ router.post('/report', (req, res) => {
     let { url } = req.body;
 
     if (url) {
-        console.log(req.socket.remoteAddress.replace(/^.*:/, ''))
         browse.browseTo(url);
         res.send(response('Thanks for the report, our agents are taking a look at it.'));
     } else {
