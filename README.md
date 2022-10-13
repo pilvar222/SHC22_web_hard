@@ -22,3 +22,5 @@ git clone https://github.com/pilvar222/SHC22_web_hard
 # Usage
 
 ./build-docker.sh
+
+# PS: Stop stalking me, you won't find anything interesting by doing OSINT, go back to the challenge you're doing and try harder! :D
